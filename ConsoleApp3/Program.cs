@@ -1,185 +1,285 @@
 using System;
-using System.Diagnostics;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace ConsoleApp3
 {
-    // All organizing structures use { and } to define their boundaries
-    class L1_Program
+    class Palindrome
     {
-        // All .NET programs begin with the main method
-        // It looks like this
         static void Main(string[] args)
         {
-            /*
-            int a, b, c;
-            double area;
-            
-            Console.WriteLine("Enter value for a:");
-            a = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter value for b:");
-            b = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter value for c:");
-            c = Convert.ToInt32(Console.ReadLine());
-            float s = (a + b + c) / 2f;
-            area =  Math.Sqrt(s * (s - a) * (s - b) * (s - c));
-
-            Console.WriteLine("Area is :" + area);
+            Stones(13);
             Console.ReadLine();
 
+            string[] listOfWords = new string[] { "abcd", "lls", "efgh", "hgfe", "s", "sssll", "dcba" };
+            PalindromePairs(listOfWords);
+            Console.ReadLine();
 
-        // example 4 - numeric input
+            PrintSeries(6);
+            Console.ReadLine();
 
+            PrintPattern(5);
+            Console.ReadLine();
 
-        // Exercise 2
-        */
-            int a, b;
-            try
-            {
-                Console.WriteLine("Enter value for a:");
-                a = Convert.ToInt32(Console.ReadLine());
-                b = a % 2;
-                if (b == 0)
-                {
-                    Console.WriteLine("Value entered is an even number");
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("Entered number is an odd number");
-                    Console.ReadLine();
-                }
-            }
-            catch (Exception e) { Console.WriteLine(e.Message);
-                Console.ReadLine();
-            }
+            string sDate = UsfTime("08:15:35AM");
+            Console.ReadLine();
 
+            UsfNumbers(110, 11);
+            Console.ReadLine();
         }
 
-            // Exercise 3
-            // Input 3 numbers from the user (x,y,z) and find the greatest of them.
-
-            // Write your code here
-
-            /*
-
-
-            // example 5 - loop
-            bool stopProgram = false;
-
-            while (stopProgram == false)
-            {
-                Console.Write("Please enter income: $");
-                income = Convert.ToDecimal(Console.ReadLine());
-
-                if (income > 400000)
-                {
-                    taxRate = 0.5M;
-                    taxLiability = taxRate * income;
-                }
-                else if (income >= 0)
-                {
-                    taxLiability = 0;
-                }
-                else
-                {
-                    stopProgram = true;
-                }
-
-                Console.WriteLine("Tax liability is " + taxLiability);
-            } // end while loop
-
-
-            // Exercise 4
-            // Input a value (n) from the user and calculate the sum of first n natural numbers.
-            // Eg. n=5. sum = 1+2+3+4+5 = 15
-
-            // Write your code here
-
-
-
-
-            // Exercise 5
-            // Input a value (n) from the user and display the following * pattern:
-            // Input n=5
-            // Output
-            // *
-            // **
-            // ***
-            // ****
-            // *****
-
-            // Write your code here
-
-
-
-
-            // Exercise 6
-            // Input a value (n) from the user and display the following * pattern:
-            // Input n=5
-            // Output
-            //     *
-            //    **
-            //   ***
-            //  ****
-            // *****
-
-            // Write your code here
-
-
-
-
-            // example 6 - method
-            income = Convert.ToDecimal(Console.ReadLine());
-            taxLiability = ComputeTaxes(income);
-            Debug.WriteLine("Tax liability is " + taxLiability);
-
-
-            // Exercise 7
-            // Write a method that accepts a parameter (n) and returns the sum of first n natural numbers.
-
-            // Write your code here
-
-
-
-
-            // example 7 - arrays
-            decimal[] incomes = new decimal[] { 100.0M, 234532, 2443245.1M, 123443 };
-
-            for (int i = 0; i < 4; i++)
-            {
-                Debug.WriteLine(incomes[i]);
-            }
-
-
-            // Exercise 8
-            // Enter n numbers in an array and print all the even numbers.
-
-            // Write your code here
-
-
-
-            // Exercise 9
-            // Enter n numbers in an array and find the highest and the smallest number.
-
-            // Write your code here
-
-        }
-
-        static decimal ComputeTaxes(decimal income)
+        //Question 1: print pattern
+        private static void PrintPattern(int n)
         {
-            decimal taxLiability;
-            decimal taxRate;
+            if (n == 0) return;
+            for (int i = n; i > 0; i--)
+            {
+                Console.Write(i);
+            }
+            Console.WriteLine();
+            PrintPattern(--n);
+        }
 
-            if (income < 400000)
-                taxLiability = 0;
+        //Question 2: print series
+        private static void PrintSeries(int n2)
+        {
+            List<int> sbSeries = new List<int>();
+            for (int i = 1; i <= n2; i++)
+            {
+                int calculatedNumber = i * (i + 1) / 2;
+                sbSeries.Add(calculatedNumber);
+            }
+            Console.WriteLine(string.Join(",", sbSeries.ToArray()));
+        }
+
+        //Question-3--USF timing
+        public static string UsfTime(string s)
+        {
+            string vTimeZone = s.Substring(8, 2);
+            int totalNumberOfSeconds = totalNumberOfSeconds =
+                (Convert.ToInt32(s.Substring(0, 2))) * 60 * 60 + Convert.ToInt32(s.Substring(3, 2)) * 60 + Convert.ToInt32(s.Substring(6, 2));
+            if (vTimeZone.ToLower().Equals("pm"))
+            {
+                totalNumberOfSeconds =
+                    (Convert.ToInt32(s.Substring(0, 2)) + 12) * 60 * 60 + Convert.ToInt32(s.Substring(3, 2)) * 60 + Convert.ToInt32(s.Substring(6, 2));
+            }
+
+            int usfHours = totalNumberOfSeconds / 2655;
+            int usfMinutes = (totalNumberOfSeconds / 45) % 59;
+            int usfSeconds = totalNumberOfSeconds % 45;
+            Console.WriteLine(usfHours.ToString() + ":" + usfMinutes.ToString() + ":" + usfSeconds.ToString());
+            return usfHours.ToString() + ":" + usfMinutes.ToString() + ":" + usfSeconds.ToString();
+        }
+
+        //question 4-- usf number
+        public static void UsfNumbers(int n3, int k)
+        {
+            for (int i = 1; i <= n3; i++)
+            {
+
+
+                if (i % 3 == 0)
+                {
+                    if (i % k == 0)
+                    {
+                        Console.Write("U");
+                        Console.WriteLine();
+                        continue;
+                    }
+                    Console.Write("U");
+                    Console.Write(" ");
+                    continue;
+                }
+
+                if (i % 5 == 0)
+                {
+                    if (i % k == 0)
+                    {
+                        Console.Write("S");
+                        Console.WriteLine();
+                        continue;
+                    }
+                    Console.Write("S");
+                    Console.Write(" ");
+
+                    continue;
+                }
+
+                if (i % 7 == 0)
+                {
+                    if (i % k == 0)
+                    {
+                        Console.Write("F");
+                        Console.WriteLine();
+                        continue;
+                    }
+                    Console.Write("F");
+                    Console.Write(" ");
+
+                    continue;
+                }
+
+                if (i % 3 == 0 && i % 5 == 0)
+                {
+                    Console.Write("US");
+                    Console.Write(" ");
+
+                    continue;
+                }
+                if (i % 5 == 0 && i % 7 == 0)
+                {
+                    Console.Write("US");
+                    Console.Write(" ");
+                    continue;
+                }
+
+                if (i % k == 0)
+                {
+                    Console.Write(i);
+                    Console.WriteLine();
+                    continue;
+                }
+                Console.Write(i);
+                Console.Write(" ");
+
+
+            }
+        }
+
+
+        //question 5-- palindrome pairs
+        public static void PalindromePairs(string[] words)
+        {
+            //array to store where the indices are at
+            List<string> indicesAt = new List<string>();
+            ArrayList test = new ArrayList();
+            if (words.Length == 0) { Console.WriteLine("Ooops!! specify an array of strings"); }
+            //this checks to see if there are any "Words" that exist out there as palindromes
+            for (int i = 0; i < words.Length; i++)
+            {
+                for (int j = 0; j < words.Length; j++)
+                {
+                    //if (words[i].Length <= 1) return; 
+                    if (i != j)
+                    {
+                        if (words[i].Length > 1)//ignore words that are 1 character in length.
+                        {
+                            string compareAgainst = GetReversedString(words[i]);
+                            //first check to see if there exists a direct palindrome
+                            //meaning abcd has an equivalent dcba in the array
+                            int indexOfPalindrome = GetIndexOfPalindrome(words, compareAgainst, j);
+                            //should not be the same as current index and shouldn't be 100000
+                            if (indexOfPalindrome != -1)
+                            {
+                                //string[][] indexAt= new string[][]{new string[]{i.ToString(),indexOfPalindrome.ToString()}};
+                                //Console.WriteLine("the palindrome for {0} is at {1}", i, indexOfPalindrome);
+                                indicesAt.Add("[" + i.ToString() + ", " + indexOfPalindrome.ToString() + "]");
+                                //found a palindrom for the current word from outer array. So no longer iterate the list.
+                                j = words.Length;
+                            }
+                        }
+
+                        if (j == words.Length) break;
+                        //oops!! no palindrome, now check to see if any combinations exist (like any two words from the array combined can form a palindrome)
+                        StringBuilder newPalindromeBuilder = new StringBuilder();
+                        newPalindromeBuilder.Append(words[i]).Append(words[j]);
+                        string reversedPalindromeBuilder = GetReversedString(newPalindromeBuilder.ToString());
+                        if (newPalindromeBuilder.ToString().Equals(reversedPalindromeBuilder))
+                        {
+                            indicesAt.Add("[" + i.ToString() + ", " + j.ToString() + "]");
+                            //Console.WriteLine("the palindrome for {0} is at {1}", i, j);
+                            j = words.Length;
+                        }
+
+                    }
+                }
+
+            }
+            Console.Write(string.Join(",", indicesAt.ToArray()));
+
+        }
+
+        private static string GetReversedString(string pWord)
+        {
+            if (pWord.Length <= 1) return pWord;
+            return GetReversedString(pWord.Substring(1)) + pWord[0];
+        }
+
+        private static int GetIndexOfPalindrome(string[] pWords, string wordToBeComparedAgainst, int currentIndex)
+        {
+            for (int i = 0; i < pWords.Length; i++)
+            {
+                if (pWords[i] == wordToBeComparedAgainst)
+                {
+                    return i;
+                }
+            }
+
+            return -1;//meaning we did not find any palindrome
+        }
+
+
+        //Question 6 -stones
+        public static void Stones(
+             int n4)
+        {
+            int ballsRemaining = n4;
+            if (n4 % 4 == 0)
+            {
+                Console.WriteLine("false");
+            }
             else
             {
-                taxRate = 0.5M;
-                taxLiability = taxRate * income;
-            }
+                Console.Write("[");
+                int noOfBallsRemaining = n4;
+                int NoOfTurns = 1;
+                while (noOfBallsRemaining > 0)
+                {
+                    if (NoOfTurns % 2 == 0) //second person turn
+                    {
+                        NoOfTurns += 1;
+                        if (noOfBallsRemaining > 3)
+                        {
+                            noOfBallsRemaining -= 3;
+                            Console.Write(3);
+                            Console.Write(",");
+                            continue;
+                        }
 
-            return taxLiability;
+                        if (noOfBallsRemaining < 4)
+                        {
+                            Console.Write(noOfBallsRemaining);
+                            noOfBallsRemaining = 0;
+                            continue;
+                        }
+                    }
+
+                    NoOfTurns += 1;//first player
+                    if (noOfBallsRemaining > 3)
+                    {
+                        noOfBallsRemaining -= 3;
+                        Console.Write(3);
+                        Console.Write(",");
+                        continue;
+                    }
+
+                    if (noOfBallsRemaining < 4)
+                    {
+                        Console.Write(noOfBallsRemaining);
+                        noOfBallsRemaining = 0;
+                        continue;
+                    }
+
+                }
+                Console.Write("]");
+
+            }
         }
-        */
+
+
+
     }
 }
