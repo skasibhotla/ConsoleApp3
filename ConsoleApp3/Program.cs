@@ -11,23 +11,24 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
-            Stones(13);
-            Console.ReadLine();
 
-            string[] listOfWords = new string[] { "abcd", "lls", "efgh", "hgfe", "s", "sssll", "dcba" };
-            PalindromePairs(listOfWords);
+            PrintPattern(5);
             Console.ReadLine();
 
             PrintSeries(6);
-            Console.ReadLine();
-
-            PrintPattern(5);
             Console.ReadLine();
 
             string sDate = UsfTime("08:15:35AM");
             Console.ReadLine();
 
             UsfNumbers(110, 11);
+            Console.ReadLine();
+
+            string[] listOfWords = new string[] { "abcd", "lls", "efgh", "hgfe", "s", "sssll", "dcba" };
+            PalindromePairs(listOfWords);
+            Console.ReadLine();
+
+            Stones(13);
             Console.ReadLine();
         }
 
